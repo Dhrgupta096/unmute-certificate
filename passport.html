@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Homemade+Apple&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,800;0,900;1,600;1,700;1,900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <style>
     :root {
       --pass-bg: #FBF8EE;
@@ -17,7 +19,14 @@
       --pass-ink: #1F0D33;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
 
     body {
       background: #14121A;
@@ -246,6 +255,9 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      padding-right: 95px; /* Prevent text colliding with rubber stamp */
+      position: relative;
+      z-index: 2;
     }
 
     .cert-recognition-badge {
@@ -273,6 +285,7 @@
       color: #382747;
       font-family: 'Libre Baskerville', serif;
       font-style: italic;
+      max-width: 255px;
     }
 
     .rubber-stamp-visa {
@@ -499,9 +512,38 @@
     }
 
     @media print {
-      body { background: none !important; padding: 0 !important; }
-      .top-bar, .hint-bar { display: none !important; }
-      .passport-booklet { box-shadow: none !important; margin: auto !important; }
+      @page {
+        size: auto;
+        margin: 8mm;
+      }
+      body {
+        background: #FFFFFF !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .top-bar, .hint-bar {
+        display: none !important;
+      }
+      .passport-booklet {
+        box-shadow: none !important;
+        margin: 0 auto !important;
+        background-color: #FBF8EE !important;
+        background: #FBF8EE !important;
+        border: 3px solid #3F1D65 !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      .passport-pane {
+        background-color: #FBF8EE !important;
+        background: #FBF8EE !important;
+      }
+      .passport-fold-seam {
+        background-color: #E8E2D2 !important;
+        background: #E8E2D2 !important;
+      }
+      .passport-table {
+        background: #FFFFFF !important;
+      }
     }
   </style>
 </head>
@@ -510,7 +552,9 @@
   <div class="top-bar">
     <a href="index.html">← Back to Certificate Studio</a>
     <div class="btn-group">
-      <button class="btn btn-print" onclick="window.print()">Print / Save as PDF</button>
+      <button class="btn" style="background:#252333; color:#E2E8F0;" onclick="window.print()">Print</button>
+      <button class="btn" style="background:#252333; color:#E2E8F0;" onclick="downloadImage()">Download PNG</button>
+      <button class="btn btn-print" onclick="downloadPDF()">Save as PDF</button>
     </div>
   </div>
 
@@ -673,5 +717,44 @@
 
   </div>
 
+  <script>
+    function downloadPDF() {
+      const targetElement = document.getElementById('passport');
+      const opt = {
+        margin: [6, 6, 6, 6],
+        filename: 'UNMUTE_PASSPORT_CERTIFICATE.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+          scale: 3, 
+          useCORS: true, 
+          allowTaint: true,
+          backgroundColor: '#FBF8EE',
+          letterRendering: true,
+          logging: false
+        },
+        jsPDF: { 
+          unit: 'mm', 
+          format: [180, 245], 
+          orientation: 'portrait' 
+        }
+      };
+      html2pdf().set(opt).from(targetElement).save();
+    }
+
+    function downloadImage() {
+      const targetElement = document.getElementById('passport');
+      html2canvas(targetElement, {
+        scale: 3,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#FBF8EE'
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'UNMUTE_PASSPORT_CERTIFICATE.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+  </script>
 </body>
 </html>

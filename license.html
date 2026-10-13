@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Homemade+Apple&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <style>
     :root {
       --lic-bg: #F4EFE6;
@@ -19,7 +21,14 @@
       --lic-border: #292524;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
 
     body {
       background: #14121A;
@@ -490,9 +499,37 @@
     }
 
     @media print {
-      body { background: none !important; padding: 0 !important; }
-      .top-bar, .hint-bar { display: none !important; }
-      .creative-license-card { box-shadow: none !important; margin: auto !important; }
+      @page {
+        size: auto;
+        margin: 8mm;
+      }
+      body {
+        background: #FFFFFF !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .top-bar, .hint-bar {
+        display: none !important;
+      }
+      .creative-license-card {
+        box-shadow: none !important;
+        margin: 0 auto !important;
+        background-color: #FAF6ED !important;
+        background: #FAF6ED !important;
+        border: 3px solid #292524 !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      .license-form-grid {
+        background: #FFFFFF !important;
+      }
+      .license-tag-box {
+        background: #F1EAD9 !important;
+      }
+      .license-ribbon-band {
+        background: #1C1917 !important;
+        color: #FFFFFF !important;
+      }
     }
   </style>
 </head>
@@ -500,7 +537,11 @@
 
   <div class="top-bar">
     <a href="index.html">← Back to Certificate Studio</a>
-    <button class="btn" onclick="window.print()">Print / Save as PDF</button>
+    <div style="display:flex; gap:8px;">
+      <button class="btn" style="background:#252333; color:#E2E8F0;" onclick="window.print()">Print</button>
+      <button class="btn" style="background:#252333; color:#E2E8F0;" onclick="downloadImage()">Download PNG</button>
+      <button class="btn" onclick="downloadPDF()">Save as PDF</button>
+    </div>
   </div>
 
   <div class="hint-bar">Click any text directly on the license card to edit before printing!</div>
@@ -686,8 +727,46 @@
       </div>
       <span contenteditable="true">CREATIVE STATUS: ACTIVE &amp; UNMUTED</span>
     </div>
-
   </div>
 
+  <script>
+    function downloadPDF() {
+      const targetElement = document.getElementById('license');
+      const opt = {
+        margin: [6, 6, 6, 6],
+        filename: 'UNMUTE_CREATIVE_LICENSE_CERTIFICATE.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+          scale: 3, 
+          useCORS: true, 
+          allowTaint: true,
+          backgroundColor: '#FAF6ED',
+          letterRendering: true,
+          logging: false
+        },
+        jsPDF: { 
+          unit: 'mm', 
+          format: [235, 170], 
+          orientation: 'landscape' 
+        }
+      };
+      html2pdf().set(opt).from(targetElement).save();
+    }
+
+    function downloadImage() {
+      const targetElement = document.getElementById('license');
+      html2canvas(targetElement, {
+        scale: 3,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#FAF6ED'
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'UNMUTE_CREATIVE_LICENSE_CERTIFICATE.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+  </script>
 </body>
 </html>

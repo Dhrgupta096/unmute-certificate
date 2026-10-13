@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Homemade+Apple&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,800;0,900;1,600;1,700;1,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Reenie+Beanie&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     :root {
       /* Palette 1: Olivia Passport (Violet & Buttercream) */
@@ -572,8 +573,11 @@
     .filter-sepia {
       filter: sepia(85%) contrast(110%);
     }
-    .filter-normal {
-      filter: none;
+    /* Force browsers to print all backgrounds and images */
+    *, *::before, *::after {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
     }
 
     .top-statement {
@@ -581,6 +585,18 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      padding-right: 95px; /* Prevent overlap with rubber stamp */
+      position: relative;
+      z-index: 2;
+    }
+
+    .cert-hero-desc {
+      font-size: 11px;
+      line-height: 1.45;
+      color: #382747;
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      max-width: 255px;
     }
 
     .cert-recognition-badge {
@@ -1233,25 +1249,84 @@
       background: white;
     }
 
-    /* Print rules */
+    /* Print rules with enforced background graphics */
     @media print {
-      body {
-        background: none !important;
-        color: black !important;
+      @page {
+        size: auto;
+        margin: 8mm;
       }
+
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
       .app-header, .sidebar, .preview-hint, .template-selector {
         display: none !important;
       }
+
       .preview-stage {
         padding: 0 !important;
+        margin: 0 !important;
         background: none !important;
+        display: block !important;
       }
+
       .certificate-container {
         box-shadow: none !important;
+        display: block !important;
+        margin: 0 auto !important;
       }
-      .passport-booklet, .creative-license-card {
+
+      .passport-booklet {
         box-shadow: none !important;
-        margin: auto !important;
+        margin: 0 auto !important;
+        background-color: #FBF8EE !important;
+        background: #FBF8EE !important;
+        border: 3px solid #3F1D65 !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      .passport-pane {
+        background-color: #FBF8EE !important;
+        background: #FBF8EE !important;
+      }
+
+      .passport-fold-seam {
+        background-color: #E8E2D2 !important;
+        background: #E8E2D2 !important;
+      }
+
+      .creative-license-card {
+        box-shadow: none !important;
+        margin: 0 auto !important;
+        background-color: #FAF6ED !important;
+        background: #FAF6ED !important;
+        border: 3px solid #292524 !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      .passport-table, .license-form-grid {
+        background: #FFFFFF !important;
+      }
+
+      .license-tag-box {
+        background: #F1EAD9 !important;
+      }
+
+      .license-ribbon-band {
+        background: #1C1917 !important;
+        color: #FFFFFF !important;
       }
     }
   </style>
@@ -1285,13 +1360,17 @@
 
     <!-- Action Buttons -->
     <div class="header-actions">
-      <button class="btn btn-secondary" onclick="window.print()">
+      <button class="btn btn-secondary" onclick="window.print()" title="Open System Print Dialog">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-        Print / PDF
+        Print
       </button>
-      <button class="btn btn-primary" onclick="downloadImage()">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        Download High-Res
+      <button class="btn btn-secondary" onclick="downloadImage()" title="Download High-Resolution PNG with Background">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+        Download PNG
+      </button>
+      <button class="btn btn-primary" onclick="downloadPDF()" title="Download Direct PDF with 100% Background and Textures">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        Save as PDF
       </button>
     </div>
   </header>
@@ -1907,15 +1986,48 @@
       document.getElementById('lic-auth-president').textContent = president;
     }
 
+    function downloadPDF() {
+      const targetElement = currentTemplate === 'passport' 
+        ? document.getElementById('render-passport') 
+        : document.getElementById('render-license');
+
+      const isPassport = currentTemplate === 'passport';
+      const bgColor = isPassport ? '#FBF8EE' : '#FAF6ED';
+
+      const opt = {
+        margin: [6, 6, 6, 6],
+        filename: `UNMUTE_${currentTemplate.toUpperCase()}_CERTIFICATE.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+          scale: 3, 
+          useCORS: true, 
+          allowTaint: true,
+          backgroundColor: bgColor,
+          letterRendering: true,
+          logging: false
+        },
+        jsPDF: { 
+          unit: 'mm', 
+          format: isPassport ? [180, 245] : [235, 170], 
+          orientation: isPassport ? 'portrait' : 'landscape' 
+        }
+      };
+
+      html2pdf().set(opt).from(targetElement).save();
+    }
+
     function downloadImage() {
       const targetElement = currentTemplate === 'passport' 
         ? document.getElementById('render-passport') 
         : document.getElementById('render-license');
 
+      const bgColor = currentTemplate === 'passport' ? '#FBF8EE' : '#FAF6ED';
+
       html2canvas(targetElement, {
-        scale: 3, // High-res 300 DPI
+        scale: 3, // Ultra-sharp 300 DPI
         useCORS: true,
-        backgroundColor: null
+        allowTaint: true,
+        backgroundColor: bgColor
       }).then(canvas => {
         const link = document.createElement('a');
         link.download = `UNMUTE_${currentTemplate.toUpperCase()}_CERTIFICATE.png`;
