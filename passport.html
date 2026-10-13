@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNMUTE Passport Certificate | DSU Literary Society</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Homemade+Apple&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,800;0,900;1,600;1,700;1,900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pass-bg: #FBF8EE;
+      --pass-purple-deep: #2A1045;
+      --pass-purple-main: #3F1D65;
+      --pass-purple-soft: #633399;
+      --pass-border: #3F1D65;
+      --pass-ink: #1F0D33;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #14121A;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px 60px;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 600px;
+      margin-bottom: 24px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      padding: 12px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .top-bar a {
+      color: #CBD5E1;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .top-bar a:hover { color: white; }
+
+    .btn-group { display: flex; gap: 10px; }
+
+    .btn {
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-print {
+      background: #8B5CF6;
+      color: white;
+    }
+
+    .btn-print:hover { background: #7C3AED; }
+
+    .hint-bar {
+      font-size: 12px;
+      color: #94A3B8;
+      margin-bottom: 20px;
+    }
+
+    /* THE PASSPORT BOOKLET */
+    .passport-booklet {
+      width: 580px;
+      background: var(--pass-bg);
+      border: 3px solid var(--pass-border);
+      border-radius: 24px;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      color: var(--pass-ink);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .passport-pane {
+      padding: 24px 24px 22px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--pass-bg);
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(63, 29, 101, 0.03) 0%, transparent 70%),
+        repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(63, 29, 101, 0.015) 15px, rgba(63, 29, 101, 0.015) 30px);
+    }
+
+    .star-border-box {
+      border: 2px solid var(--pass-border);
+      border-radius: 16px;
+      padding: 16px;
+      position: relative;
+    }
+
+    .star-perimeter {
+      position: absolute;
+      inset: -9px;
+      pointer-events: none;
+    }
+
+    .star-row-top, .star-row-bottom {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--pass-purple-main);
+      font-size: 11px;
+      line-height: 1;
+    }
+
+    .star-row-top { top: -6px; }
+    .star-row-bottom { bottom: -6px; }
+
+    .star-col-left, .star-col-right {
+      position: absolute;
+      top: 14px;
+      bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: var(--pass-purple-main);
+      font-size: 11px;
+      line-height: 1;
+    }
+
+    .star-col-left { left: -6px; }
+    .star-col-right { right: -6px; }
+
+    .passport-header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .passport-cursive-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 46px;
+      line-height: 1;
+      color: var(--pass-purple-deep);
+      position: relative;
+      transform: rotate(-1.5deg);
+    }
+
+    .passport-cursive-title::after {
+      content: "★";
+      position: absolute;
+      right: -24px;
+      bottom: 2px;
+      font-size: 20px;
+      color: var(--pass-purple-main);
+    }
+
+    .passport-authority {
+      text-align: right;
+    }
+
+    .passport-authority .univ {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--pass-purple-deep);
+      text-transform: uppercase;
+    }
+
+    .passport-authority .soc {
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--pass-purple-main);
+      letter-spacing: 1px;
+    }
+
+    .passport-authority .event-tag {
+      display: inline-block;
+      margin-top: 3px;
+      padding: 2px 8px;
+      background: var(--pass-purple-deep);
+      color: #FAF7EE;
+      font-size: 9px;
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border-radius: 4px;
+    }
+
+    .passport-top-showcase {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.45);
+      border: 1.5px solid var(--pass-purple-main);
+      border-radius: 12px;
+      padding: 12px 14px;
+      position: relative;
+    }
+
+    .portrait-photo-box {
+      width: 140px;
+      height: 160px;
+      border: 1.5px solid var(--pass-purple-main);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #EBE4D5;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .portrait-photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(130%) brightness(105%) saturate(0.2) sepia(0.3) hue-rotate(240deg);
+      mix-blend-mode: multiply;
+    }
+
+    .top-statement {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .cert-recognition-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--pass-purple-soft);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .cert-hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--pass-purple-deep);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .cert-hero-desc {
+      font-size: 11px;
+      line-height: 1.45;
+      color: #382747;
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+    }
+
+    .rubber-stamp-visa {
+      position: absolute;
+      right: 18px;
+      bottom: -10px;
+      width: 105px;
+      height: 105px;
+      border: 3px dashed rgba(63, 29, 101, 0.75);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6px;
+      transform: rotate(-12deg);
+      pointer-events: none;
+      color: var(--pass-purple-main);
+      background: radial-gradient(circle, rgba(251, 248, 238, 0.8) 0%, rgba(251, 248, 238, 0.4) 70%, transparent 100%);
+    }
+
+    .rubber-stamp-visa .stamp-univ {
+      font-size: 7px;
+      font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    .rubber-stamp-visa .stamp-bold {
+      font-size: 11px;
+      font-weight: 900;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.5px;
+      margin: 2px 0;
+      border-top: 1px solid var(--pass-purple-main);
+      border-bottom: 1px solid var(--pass-purple-main);
+      padding: 1px 0;
+    }
+
+    .rubber-stamp-visa .stamp-date {
+      font-size: 8px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .passport-fold-seam {
+      height: 12px;
+      background: #E8E2D2;
+      border-top: 2px dashed #938270;
+      border-bottom: 2px dashed #938270;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .passport-fold-seam::after {
+      content: "• • • FOLD • • •";
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 4px;
+      color: #8C7C6B;
+    }
+
+    .passport-data-split {
+      display: flex;
+      gap: 16px;
+    }
+
+    .passport-sub-photo-col {
+      width: 140px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .passport-sub-photo {
+      width: 140px;
+      height: 155px;
+      border: 1.5px solid var(--pass-purple-main);
+      border-radius: 6px;
+      overflow: hidden;
+      background: #EBE4D5;
+      margin-bottom: 8px;
+    }
+
+    .passport-sub-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(130%) brightness(105%) saturate(0.2) sepia(0.3) hue-rotate(240deg);
+      mix-blend-mode: multiply;
+    }
+
+    .passport-script-footer {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 26px;
+      color: var(--pass-purple-deep);
+      text-align: center;
+      line-height: 1;
+    }
+
+    .passport-script-footer span.star-sub {
+      font-size: 14px;
+      color: var(--pass-purple-main);
+    }
+
+    .passport-script-footer small {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-style: normal;
+      font-size: 7.5px;
+      color: #633399;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+      text-transform: uppercase;
+    }
+
+    .passport-table {
+      flex: 1;
+      border-collapse: collapse;
+      border: 1.5px solid var(--pass-purple-main);
+      background: white;
+    }
+
+    .passport-table tr {
+      border-bottom: 1.5px solid var(--pass-purple-main);
+    }
+
+    .passport-table td {
+      padding: 4px 8px;
+      border-right: 1.5px solid var(--pass-purple-main);
+      vertical-align: top;
+    }
+
+    .passport-table td:last-child {
+      border-right: none;
+    }
+
+    .field-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      color: #633399;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 1px;
+    }
+
+    .field-value {
+      font-family: 'Courier Prime', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--pass-ink);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .signature-canvas-val {
+      font-family: 'Homemade Apple', cursive;
+      font-size: 14px;
+      color: #1F0D33;
+      padding: 2px 0;
+      line-height: 1.2;
+    }
+
+    .expiry-val {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      text-align: right;
+      color: #633399;
+      padding: 2px 4px;
+    }
+
+    .passport-mrz-zone {
+      margin-top: 12px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--pass-purple-main);
+      font-family: 'Courier Prime', monospace;
+      font-size: 9.5px;
+      line-height: 1.35;
+      letter-spacing: 2.2px;
+      color: var(--pass-purple-deep);
+      text-transform: uppercase;
+      background: rgba(63, 29, 101, 0.03);
+      padding: 6px 8px;
+      border-radius: 4px;
+    }
+
+    .passport-authorities-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      padding-top: 6px;
+    }
+
+    .authority-sign-block {
+      text-align: center;
+      width: 140px;
+    }
+
+    .authority-sign-img {
+      font-family: 'Homemade Apple', cursive;
+      font-size: 13px;
+      color: #2A1045;
+      border-bottom: 1px solid var(--pass-purple-main);
+      padding-bottom: 2px;
+      margin-bottom: 2px;
+    }
+
+    .authority-sign-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 7.5px;
+      color: #552780;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    [contenteditable="true"]:hover {
+      background: rgba(139, 92, 246, 0.08);
+      cursor: text;
+    }
+
+    @media print {
+      body { background: none !important; padding: 0 !important; }
+      .top-bar, .hint-bar { display: none !important; }
+      .passport-booklet { box-shadow: none !important; margin: auto !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="index.html">← Back to Certificate Studio</a>
+    <div class="btn-group">
+      <button class="btn btn-print" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+  </div>
+
+  <div class="hint-bar">Click any text directly on the passport to edit before printing!</div>
+
+  <div class="passport-booklet" id="passport">
+    
+    <!-- TOP PANE -->
+    <div class="passport-pane">
+      <div class="star-border-box">
+        
+        <div class="star-perimeter">
+          <div class="star-row-top">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <div class="star-col-left">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <div class="star-col-right">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <div class="star-row-bottom">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+        </div>
+
+        <div class="passport-header-row">
+          <div class="passport-cursive-title" contenteditable="true">Passport.</div>
+          <div class="passport-authority">
+            <div class="univ" contenteditable="true">DAYANANDA SAGAR UNIVERSITY</div>
+            <div class="soc" contenteditable="true">LITERARY SOCIETY</div>
+            <span class="event-tag" contenteditable="true">UNMUTE • OPEN MIC</span>
+          </div>
+        </div>
+
+        <div class="passport-top-showcase">
+          <div class="portrait-photo-box">
+            <img src="./sample1.jpg" alt="Performer Photo">
+          </div>
+          <div class="top-statement">
+            <div class="cert-recognition-badge" contenteditable="true">CERTIFIED UNMUTED PERFORMER</div>
+            <div class="cert-hero-name" contenteditable="true">OLIVIA I. RODRIGO</div>
+            <div class="cert-hero-desc" contenteditable="true">
+              "This document certifies that the bearer took to the mic at UNMUTE, broke the silence, and delivered words, rhythm, and raw emotion that resonated across the stage."
+            </div>
+          </div>
+
+          <div class="rubber-stamp-visa">
+            <span class="stamp-univ">DSU LIT SOC</span>
+            <span class="stamp-bold">UNMUTED</span>
+            <span class="stamp-date">STAGE ACCESS</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SEAM -->
+    <div class="passport-fold-seam"></div>
+
+    <!-- BOTTOM PANE -->
+    <div class="passport-pane">
+      <div class="star-border-box">
+
+        <div class="star-perimeter">
+          <div class="star-row-top">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <div class="star-col-left">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <div class="star-col-right">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <div class="star-row-bottom">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+        </div>
+
+        <div class="passport-data-split">
+          <div class="passport-sub-photo-col">
+            <div class="passport-sub-photo">
+              <img src="./sample1.jpg" alt="Performer Photo">
+            </div>
+            <div class="passport-script-footer">
+              <span contenteditable="true">Passport.</span> <span class="star-sub">★</span>
+              <small contenteditable="true">Official Stage Entry</small>
+            </div>
+          </div>
+
+          <table class="passport-table">
+            <tr>
+              <td style="width: 72%;">
+                <span class="field-label">Name:</span>
+                <div class="field-value" contenteditable="true">OLIVIA I. RODRIGO</div>
+              </td>
+              <td style="width: 28%;">
+                <span class="field-label">Voice / Art:</span>
+                <div class="field-value" contenteditable="true">VOCALS</div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="field-label">Event:</span>
+                <div class="field-value" contenteditable="true">UNMUTE '24 OPEN MIC</div>
+              </td>
+              <td>
+                <span class="field-label">Stage ID:</span>
+                <div class="field-value" contenteditable="true">UNM-2212</div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="field-label">Authority / Host:</span>
+                <div class="field-value" style="font-size: 10px;" contenteditable="true">DAYANANDA SAGAR UNIVERSITY</div>
+              </td>
+              <td>
+                <span class="field-label">Status:</span>
+                <div class="field-value" style="color: #633399;" contenteditable="true">UNMUTED</div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <span class="field-label">Performance Art / Category:</span>
+                <div class="field-value" contenteditable="true">SPOKEN WORD & POETRY</div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <span class="field-label">Signature of Authorized Performer:</span>
+                <div class="signature-canvas-val" contenteditable="true">Olivia Rodrigo</div>
+                <div class="expiry-val" contenteditable="true">valid until: does not expire</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="passport-authorities-row">
+          <div class="authority-sign-block">
+            <div class="authority-sign-img" contenteditable="true">Dr. Maya Kulkarni</div>
+            <div class="authority-sign-title">Faculty Coordinator • DSU</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <img src="./dsu_logo.png" style="width:26px; height:26px; border-radius:50%; border:1px solid #3F1D65;" alt="DSU">
+            <img src="./logo.jpg" style="width:26px; height:26px; border-radius:50%; border:1px solid #3F1D65;" alt="LitSoc">
+          </div>
+          <div class="authority-sign-block">
+            <div class="authority-sign-img" contenteditable="true">Dhruv Gupta</div>
+            <div class="authority-sign-title">President • Literary Society</div>
+          </div>
+        </div>
+
+        <div class="passport-mrz-zone" contenteditable="true">
+          P&lt;IND&lt;UNMUTE&lt;&lt;RODRIGO&lt;&lt;OLIVIA&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>
+          UNM202422129IND0302268M2810134&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;04
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
