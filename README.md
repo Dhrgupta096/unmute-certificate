@@ -1,6 +1,10 @@
 # 🎙️ UNMUTE • Certificate Studio
 ### Dayananda Sagar University • Literary Society
 
+[![Live Demo](https://img.shields.io/badge/Live_Studio-Visit_Site-8B5CF6?style=for-the-badge&logo=github)](https://dhrgupta096.github.io/unmute-certificate/)
+
+🔗 **Direct Live Link:** [https://dhrgupta096.github.io/unmute-certificate/](https://dhrgupta096.github.io/unmute-certificate/)
+
 An interactive certificate design and generation studio created for **UNMUTE** — the annual open mic event organized by the Literary Society at Dayananda Sagar University.
 
 Inspired by retro collectible documents, this project offers two custom certificate aesthetics that reject generic certificate templates in favor of authentic, memorable design.
