@@ -1412,8 +1412,8 @@
           </select>
         </div>
         <div class="form-group">
-          <label>University / Affiliation</label>
-          <input type="text" id="input-affiliation" value="DAYANANDA SAGAR UNIVERSITY" oninput="updateCertificates()">
+          <label>University / Institution</label>
+          <input type="text" id="input-affiliation" value="SOE, DAYANANDA SAGAR UNIVERSITY" oninput="updateCertificates()">
         </div>
         <div class="form-group">
           <label>Passport / License No.</label>
@@ -1421,7 +1421,11 @@
         </div>
         <div class="form-group">
           <label>Event Date & Venue</label>
-          <input type="text" id="input-date" value="OCTOBER 24, 2024 • AUDITORIUM" oninput="updateCertificates()">
+          <input type="text" id="input-date" value="OCTOBER 24, 2024 • SOE, DSU" oninput="updateCertificates()">
+        </div>
+        <div class="form-group">
+          <label>Creative License Sub-Manifesto</label>
+          <textarea id="input-manifesto" rows="2" style="resize:vertical;" oninput="updateCertificates()">The UNMUTE Creative License represents creative freedom, issued to artists, poets, thinkers, and storytellers permitted to command the spotlight and speak without filters.</textarea>
         </div>
       </div>
 
@@ -1471,7 +1475,7 @@
           <input type="text" id="input-faculty" value="Dr. Maya Kulkarni" oninput="updateCertificates()">
         </div>
         <div class="form-group">
-          <label>President, Literary Society</label>
+          <label>Event Organizer Signature</label>
           <input type="text" id="input-president" value="Dhruv Gupta" oninput="updateCertificates()">
         </div>
       </div>
@@ -1672,8 +1676,8 @@
           <!-- Header Row -->
           <div class="license-header-grid">
             <div class="license-headline-group">
-              <div class="license-huge-title">CREATIVE LICENSE</div>
-              <div class="license-sub-manifesto">
+              <div class="license-huge-title" contenteditable="true">CREATIVE LICENSE</div>
+              <div class="license-sub-manifesto" id="lic-manifesto-text" contenteditable="true">
                 The UNMUTE Creative License represents creative freedom, issued to artists, poets, thinkers, and storytellers permitted to command the spotlight and speak without filters.
               </div>
             </div>
@@ -1681,10 +1685,10 @@
             <div class="license-meta-top-right">
               <div class="license-number-badge">
                 <span class="label"># of License</span>
-                <span id="lic-card-number">2212</span>
+                <span id="lic-card-number" contenteditable="true">2212</span>
               </div>
               <div class="license-sign-top">
-                <div class="sign-img" id="lic-top-sig">Olivia Rodrigo</div>
+                <div class="sign-img" id="lic-top-sig" contenteditable="true">Olivia Rodrigo</div>
                 <div class="sign-label">Signature of Authorized Creative</div>
               </div>
             </div>
@@ -1700,18 +1704,18 @@
               </div>
               <div class="photo-orange-tag">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-                <span>DSU LIT SOC • UNMUTE</span>
+                <span contenteditable="true">SOE DSU • UNMUTE</span>
               </div>
 
               <!-- Blue Circular Stamp -->
               <div class="license-blue-stamp">
                 <span class="stamp-circle-text">DAYANANDA SAGAR UNIV</span>
-                <span class="stamp-mid">LIT SOC</span>
+                <span class="stamp-mid">SOE DSU</span>
                 <span class="stamp-circle-text">STAGE VERIFIED</span>
               </div>
 
               <!-- Red Stamp -->
-              <div class="license-red-stamp">
+              <div class="license-red-stamp" contenteditable="true">
                 100% RAW VOICE
               </div>
             </div>
@@ -1724,43 +1728,43 @@
                 <tr>
                   <td style="width: 50%;">
                     <span class="lic-label">First Name:</span>
-                    <div class="lic-val" id="lic-first-name">OLIVIA</div>
+                    <div class="lic-val" id="lic-first-name" contenteditable="true">OLIVIA</div>
                   </td>
                   <td style="width: 50%;">
                     <span class="lic-label">Family Name:</span>
-                    <div class="lic-val" id="lic-family-name">RODRIGO</div>
+                    <div class="lic-val" id="lic-family-name" contenteditable="true">RODRIGO</div>
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <span class="lic-label">Creative Art / Discipline:</span>
-                    <div class="lic-val" id="lic-discipline">SPOKEN WORD & POETRY</div>
+                    <div class="lic-val" id="lic-discipline" contenteditable="true">SPOKEN WORD & POETRY</div>
                   </td>
                   <td>
                     <span class="lic-label">Recognition / Honor:</span>
-                    <div class="lic-val" id="lic-honor" style="color: #B91C1C;">CERTIFIED PERFORMER</div>
+                    <div class="lic-val" id="lic-honor" style="color: #B91C1C;" contenteditable="true">CERTIFIED PERFORMER</div>
                   </td>
                 </tr>
                 <tr>
                   <td colspan="2">
-                    <span class="lic-label">Institution / Society:</span>
-                    <div class="lic-val" style="font-size: 11px;">DAYANANDA SAGAR UNIVERSITY • LITERARY SOCIETY</div>
+                    <span class="lic-label">Institution:</span>
+                    <div class="lic-val" id="lic-institution" style="font-size: 11px;" contenteditable="true">SOE, DAYANANDA SAGAR UNIVERSITY</div>
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <span class="lic-label">Valid Until:</span>
-                    <div class="lic-val" style="font-size: 11px;">DOES NOT EXPIRE</div>
+                    <div class="lic-val" id="lic-valid-until" style="font-size: 11px;" contenteditable="true">TILL NEXT EVENT</div>
                   </td>
                   <td>
                     <span class="lic-label">Stage Event:</span>
-                    <div class="lic-val" style="font-size: 11px;">UNMUTE ANNUAL OPEN MIC</div>
+                    <div class="lic-val" style="font-size: 11px;" contenteditable="true">UNMUTE ANNUAL OPEN MIC</div>
                   </td>
                 </tr>
               </table>
 
               <!-- Ribbon Band -->
-              <div class="license-ribbon-band">
+              <div class="license-ribbon-band" contenteditable="true">
                 <span>STAGE STORYTELLER</span>
                 <span>•</span>
                 <span>RAW POETRY</span>
@@ -1772,15 +1776,15 @@
               <div class="license-tags-row">
                 <div class="license-tag-box">
                   STAGE FREQUENCY
-                  <strong>CLEAR DECIBELS</strong>
+                  <strong contenteditable="true">CLEAR DECIBELS</strong>
                 </div>
                 <div class="license-tag-box">
                   VOICE PROFILE
-                  <strong id="lic-voice-tag">LIVE AUDIENCE HIT</strong>
+                  <strong id="lic-voice-tag" contenteditable="true">LIVE AUDIENCE HIT</strong>
                 </div>
                 <div class="license-tag-box">
                   LOCATION
-                  <strong>DSU AUDITORIUM</strong>
+                  <strong id="lic-location-tag" contenteditable="true">SOE, DSU</strong>
                 </div>
               </div>
 
@@ -1826,18 +1830,18 @@
                     <rect x="188" y="0" width="3" height="36" fill="#1C1917"/>
                     <rect x="194" y="0" width="2" height="36" fill="#1C1917"/>
                   </svg>
-                  <div class="barcode-number-text">440 234 00042 5549</div>
+                  <div class="barcode-number-text" contenteditable="true">440 234 00042 5549</div>
                 </div>
 
                 <!-- Dual Signatures on License -->
                 <div class="license-dual-sigs">
                   <div class="license-sig-unit">
-                    <div class="sig-hand" id="lic-auth-faculty">Dr. Maya Kulkarni</div>
+                    <div class="sig-hand" id="lic-auth-faculty" contenteditable="true">Dr. Maya Kulkarni</div>
                     <div class="sig-post">Faculty Coordinator</div>
                   </div>
                   <div class="license-sig-unit">
-                    <div class="sig-hand" id="lic-auth-president">Dhruv Gupta</div>
-                    <div class="sig-post">President • LitSoc</div>
+                    <div class="sig-hand" id="lic-auth-president" contenteditable="true">Dhruv Gupta</div>
+                    <div class="sig-post" id="lic-auth-post2" contenteditable="true">Event Organizer</div>
                   </div>
                 </div>
               </div>
@@ -1847,13 +1851,13 @@
 
           <!-- Status Footer -->
           <div class="license-status-strip">
-            <span>VALID UNTIL: DOES NOT EXPIRE</span>
+            <span id="lic-footer-validity" contenteditable="true">VALID UNTIL: TILL NEXT EVENT</span>
             <div class="license-branding-pill">
               <img src="./dsu_logo.png" alt="DSU">
               <img src="./logo.jpg" alt="LitSoc">
-              <span>DAYANANDA SAGAR UNIVERSITY</span>
+              <span id="lic-footer-univ" contenteditable="true">SOE, DAYANANDA SAGAR UNIVERSITY</span>
             </div>
-            <span>CREATIVE STATUS: ACTIVE &amp; UNMUTED</span>
+            <span contenteditable="true">CREATIVE STATUS: ACTIVE &amp; UNMUTED</span>
           </div>
 
         </div>
@@ -1984,6 +1988,13 @@
       document.getElementById('lic-card-number').textContent = numMatch;
       document.getElementById('lic-auth-faculty').textContent = faculty;
       document.getElementById('lic-auth-president').textContent = president;
+
+      const manifesto = document.getElementById('input-manifesto').value.trim();
+      if (manifesto) {
+        document.getElementById('lic-manifesto-text').textContent = manifesto;
+      }
+      document.getElementById('lic-institution').textContent = affiliation;
+      document.getElementById('lic-footer-univ').textContent = affiliation;
     }
 
     function downloadPDF() {
